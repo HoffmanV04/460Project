@@ -6,9 +6,9 @@ def displayResult(result):
     loses = ["dealer_win", "player_bust", "dealer_blackjack"]
 
     if game_result.lower() in wins:
-        print("You Win!")
+        print("You Win!" + game_result)
     elif game_result.lower() in loses:
-        print("Dealer Wins!")
+        print("Dealer Wins! " + game_result)
     elif game_result.lower() == "push":
         print("Push, no winner")
     return
@@ -142,6 +142,7 @@ def playGame(clientSocket, user):
 
 
         if "RESULT" in startResponse:
+            displayResult(startResponse)
             return  # round finished
 
         playHand(clientSocket)
