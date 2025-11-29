@@ -12,8 +12,8 @@ playGame():
   client send the bet message:  "BET <bet>"  
   server should verify the bet amount:  
   if the amount is invalid, return the message: "BET invalid"  
-  - client should then ask for a new bet  
-  if the amount is valid, the server will deal cards and tell the client what to do next  
+  - client should then ask for a new bet
+if the amount is valid, the server will deal cards and tell the client what to do next  
   - client checks if the reponse was RESULT  
   - RESULT <result_message> means that the game already finished (in this case, the player was dealt blackjack and won)  
   - else, call playHand()  
