@@ -1,16 +1,23 @@
 from socket import *
 
-def displayResult(result):
-    game_result=result[1]
+def resultMessage():
     wins = ["player_blackjack", "player_win", "dealer_bust"]
     loses = ["dealer_win", "player_bust", "dealer_blackjack"]
-
+    
     if game_result.lower() in wins:
         print("You Win!" + game_result)
     elif game_result.lower() in loses:
         print("Dealer Wins! " + game_result)
     elif game_result.lower() == "push":
         print("Push, no winner")
+
+def displayResult(result):
+    #expects result in form of "RESULT <game_result1> <game_result2>
+    print("Results:)
+    resultMessage(result[1])
+    if result.len > 2:
+        print("Second Hand:")
+        resultMessage(result[2])
     return
 
 
