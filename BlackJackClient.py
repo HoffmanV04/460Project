@@ -14,52 +14,31 @@ def displayResult(result):
     return
 
 
-def displayDealer(clientSocket):
-    dealerRequest = "GET dealer"
-    clientSocket.send(dealerRequest.encode())
-    #expects response in form DEALER <value> <card1> <card2> ...
-    dealerResponse = clientSocket.recv(1024).decode()
-    dealer_hand=dealerResponse.split()
-    message = dealer_hand.pop(0)
-    # initialize the dealer's hand, and the value of what it's showing
-    dealer_value = dealer_hand.pop(0)
+def displayHand(clientSocket, person):
+    #takes the argument of whose hand you want to retrieve
+    handRequest = "GET " + person
+    clientSocket.send(handRequest.encode())
+    #expects response in form "HAND <value> <card1> <card2> ..."
 
-    display_hand = "Dealer Hand: "
-    #Dealer's cards:
-    for card in dealer_hand:
-        display_hand += card + " "
-    #print the dealer's hand
-    print("--------------------------------")
-    print(display_hand)
-    #Total the dealer is showing
-    print("Dealer Total: " + dealer_value)
-    print("--------------------------------" + "\n")
+    handResponse = clientSocket.recv(1024).decode()
+    hand=handResponse.split()
+    # initialize  hand and the value of it
+    hand.pop(0)
+    value = hand.pop(0)
 
-
-def displayPlayer(clientSocket):
-    playerRequest = "GET player"
-    clientSocket.send(playerRequest.encode())
-    #expects response in form "PLAYER <value> <card1> <card2> ..."
-
-    playerResponse = clientSocket.recv(1024).decode()
-    player_hand=playerResponse.split()
-    player_hand.pop(0)
-    # initialize player's hand and the value of it
-    player_value = player_hand.pop(0)
-
-    display_hand = "Your Hand: "
+    if person == "player":
+        display_hand = "Your Hand: "
+    else
+        display_hand = "Dealer's Hand: "
     #Player's  card:
-    for card in player_hand:
+    for card in hand:
         display_hand += card + " "
     #print the player's hand
     print("--------------------------------")
     print(display_hand)
     #Total of the hand
-    print("Your Total: " + player_value + "\n")
+    print("Your Total: " + value + "\n")
     print("--------------------------------" + "\n")
-
-
-
 
     return
 
@@ -93,8 +72,8 @@ def playHand(clientSocket):
         response = actionResponse.split()
 
         #view updated hands
-        displayDealer(clientSocket)
-        displayPlayer(clientSocket)
+        displayHand(clientSocket, "dealer")
+        displayHand(clientSocket, "player")
 
         #the next step
         if "RESULT" in response: #when the game ends and returns the result
@@ -137,8 +116,10 @@ def playGame(clientSocket, user):
             print("bet invalid")
             continue
 
-        displayDealer(clientSocket)
-        displayPlayer(clientSocket)
+        displayHand(clientSocket, "dealer")
+        displayHand(clientSocket, "player")
+
+        
 
 
         if "RESULT" in startResponse:
