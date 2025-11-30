@@ -130,10 +130,13 @@ def blackjackThread(connectionSocket):
         connectionSocket.close()
         return
       
-      player_total = hand_value(player_cards)
-      if player_total == 21:
-        # player blackjack
+      player_total = hand_value(player_cards[hand_id])
+      if player_total >= 21:
+        result = "RESULT player_bust"
+        break
+      elif player_total == 21:
         result = "RESULT player_blackjack"
+        break
 
     player_total = hand_value(player_cards)
     dealer_total = hand_value(dealer_cards)
@@ -164,5 +167,6 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
