@@ -25,7 +25,7 @@ def displayDealer(clientSocket):
     dealer_value = dealer_hand.pop(0)
 
     display_hand = "Dealer Hand: "
-    #Dealer's first card:
+    #Dealer's cards:
     for card in dealer_hand:
         display_hand += card + " "
     #print the dealer's hand
@@ -48,7 +48,7 @@ def displayPlayer(clientSocket):
     player_value = player_hand.pop(0)
 
     display_hand = "Your Hand: "
-    #Pealer's first card:
+    #Player's  card:
     for card in player_hand:
         display_hand += card + " "
     #print the player's hand
