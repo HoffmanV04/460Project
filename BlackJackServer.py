@@ -5,12 +5,6 @@ from _thread import *
 player_cards = []
 dealer_cards = []
 
-HOST = 
-PORT = 
-
-user_balances = {}
-INITIAL_BALANCE = 1000
-
 def create_deck():
     ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
     suits = ['H','D','C','S']
@@ -41,16 +35,15 @@ def split():
   if len(player_cards) == 2 and player_cards[0][0] == player_cards[1][0]:
     # create another hand and "hit" each hand with hit()
     bet = bet * 2
-    return "success"
+    return "ACTION"
   else:
     return "error invalid cards"
-
 
 def double():
   if len(player_cards) == 2:
     hit()
     bet = bet * 2
-    return "success"
+    return "RESULT"
   else:
     return "error invalid cards"
   
@@ -58,7 +51,6 @@ def double():
 def hit():
   # add card to hand
   return
-
 
 def deal():
   # deal cards
@@ -80,22 +72,11 @@ def finish_game():
   # deal to dealer until dealer has soft 17 or higher
   return
 
-# testing function, delete for final
-def testPrintCards():
-  print("Player cards: ")
-  for card in player_cards:
-    print(card)
-  print("Dealer cards: ")
-  for card in dealer_cards:
-    print(card)
-
-
 def return_cards(cards):
-  result = ""
+  result = str(hand_value(cards)) + " "
   for card in cards:
-    result = result + " " + card
+    result = result + " " + card + " "
   return result
-
 
 def blackjackThread(connectionSocket):
   print('Starting the thread for the blackjack game')
@@ -167,7 +148,6 @@ def blackjackThread(connectionSocket):
     connectionSocket.send(result.encode())
   connectionSocket.close()
 
-
 def serverMain():
   serverPort = 12346
   # Create a welcome TCP scocket
@@ -182,6 +162,3 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
-
-
-
