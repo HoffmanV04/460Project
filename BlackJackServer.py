@@ -1,5 +1,11 @@
 from socket import *
 import random
+from socket import *
+import random
+from _thread import *
+
+player_cards = []
+dealer_cards = []
 
 HOST = 
 PORT = 
@@ -32,16 +38,6 @@ def hand_value(hand):
         aces -= 1
     return total
 
-from socket import *
-import random
-from _thread import *
-
-
-player_cards = []
-dealer_cards = []
-
-
-# caden
 def create_deck():
     ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
     suits = ['H','D','C','S']
@@ -49,7 +45,6 @@ def create_deck():
     random.shuffle(deck)
     return deck
 
-# caden
 def hand_value(hand):
     total = 0
     aces = 0
@@ -68,8 +63,6 @@ def hand_value(hand):
         aces -= 1
     return total
 
-
-# me
 def split():
   # only 2 cards and cards are equal
   if len(player_cards) == 2 and player_cards[0][0] == player_cards[1][0]:
@@ -79,7 +72,7 @@ def split():
   else:
     return "error invalid cards"
 
-# me
+
 def double():
   if len(player_cards) == 2:
     hit()
@@ -93,7 +86,7 @@ def hit():
   # add card to hand
   return
 
-# me
+
 def deal():
   # deal cards
   deck = create_deck()
@@ -123,14 +116,14 @@ def testPrintCards():
   for card in dealer_cards:
     print(card)
 
-# me
+
 def return_cards(cards):
   result = ""
   for card in cards:
     result = result + " " + card
   return result
 
-# me
+
 def blackjackThread(connectionSocket):
   print('Starting the thread for the blackjack game')
   clientRequest = connectionSocket.recv(1024).decode()
@@ -201,7 +194,7 @@ def blackjackThread(connectionSocket):
     connectionSocket.send(result.encode())
   connectionSocket.close()
 
-# me
+
 def serverMain():
   serverPort = 12346
   # Create a welcome TCP scocket
@@ -216,3 +209,4 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
