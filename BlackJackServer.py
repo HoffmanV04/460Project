@@ -1,7 +1,5 @@
 from socket import *
 import random
-from socket import *
-import random
 from _thread import *
 
 player_cards = []
@@ -184,5 +182,6 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
