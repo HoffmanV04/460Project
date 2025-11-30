@@ -113,9 +113,9 @@ def blackjackThread(connectionSocket):
         result = split()
       elif action == "GET":
         if gameCommand[1] == "dealer":
-          result = "PLAYER " + return_cards(dealer_cards)
+          result = "HAND " + return_cards(dealer_cards)
         elif gameCommand[1] == "player":
-          result = "DEALER " + return_cards(player_cards)
+          result = "HAND " + return_cards(player_cards)
         else:
           result = "error bad command"
       
@@ -162,3 +162,4 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
