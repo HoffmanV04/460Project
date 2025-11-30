@@ -50,6 +50,8 @@ def double():
 # TODO: needs to be implemented
 def hit():
   # add card to hand
+    new_card = deck.pop()
+    player_cards.append(new_card)
   return
 
 def deal():
@@ -162,4 +164,5 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
