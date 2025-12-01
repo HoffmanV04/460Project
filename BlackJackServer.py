@@ -160,19 +160,23 @@ def blackjackThread(connectionSocket):
       elif dealer_total == 21:
         result = "RESULT dealer_blackjack"
         break
-    player_total = hand_value(player_cards)
-    dealer_total = hand_value(dealer_cards)
-    if player_total < dealer_total:
-      # player loses
-      result = "RESULT dealer_win"
-    elif player_total == dealer_total:
-      # push
-      result = "RESULT push"
+    if "RESULT" in result:
+      print(f"PLAYER LOSS: {result}")
+      connectionSocket.send(result.encode())
     else:
-      # player win
-      result = "RESULT player_win"
-    print(f"RESULT: {result}")
-    connectionSocket.send(result.encode())
+        player_total = hand_value(player_cards)
+        dealer_total = hand_value(dealer_cards)
+        if player_total < dealer_total:
+            # player loses
+            result = "RESULT dealer_win"
+        elif player_total == dealer_total:
+            # push
+            result = "RESULT push"
+        else:
+            # player win
+            result = "RESULT player_win"
+            print(f"RESULT: {result}")
+            connectionSocket.send(result.encode())
   connectionSocket.close()
 
 def serverMain():
@@ -189,6 +193,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
