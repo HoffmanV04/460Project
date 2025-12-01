@@ -51,17 +51,22 @@ def double():
 # TODO: needs to be implemented
 def hit_player():
   # add card to hand
+    global deck, player_cards, dealer_cards
     player_cards.append(deck.pop())
     return
 
 def hit_dealer():
   # add card to hand
+    global deck, player_cards, dealer_cards
     dealer_cards.append(deck.pop())
     return
 
 def deal():
   # deal cards
+  global deck, player_cards, dealer_cards
   deck = create_deck()
+  player_cards.clear()
+  dealer_cards.clear()
   for i in range(0,2):
     player_cards.append(deck.pop())
     dealer_cards.append(deck.pop())
@@ -182,6 +187,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
