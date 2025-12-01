@@ -39,15 +39,15 @@ def displayHand(clientSocket, person):
     else:
       display_hand = "Dealer's Hand: "
       #Player's  card:
-      for card in hand:
-        display_hand += card + " "
+    for card in hand:
+      display_hand += card + " "
       #print the player's hand
-      print("--------------------------------")
-      print(display_hand)
-      #Total of the hand
-      print("Your Total: " + value + "\n")
-      print("--------------------------------" + "\n")
-      return
+    print("--------------------------------")
+    print(display_hand)
+    #Total of the hand
+    print("Your Total: " + value + "\n")
+    print("--------------------------------" + "\n")
+    return
 
 def sendAction(clientSocket, action):
   action = action.encode()
