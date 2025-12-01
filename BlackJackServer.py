@@ -5,6 +5,7 @@ from _thread import *
 player_cards = []
 dealer_cards = []
 deck = []
+bet = 0
 
 def create_deck():
     ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
@@ -32,6 +33,7 @@ def hand_value(hand):
     return total
 
 def split():
+  global bet
   # only 2 cards and cards are equal
   if len(player_cards) == 2 and player_cards[0][0] == player_cards[1][0]:
     # create another hand and "hit" each hand with hit()
@@ -41,6 +43,7 @@ def split():
     return "error invalid cards"
 
 def double():
+  global bet
   if len(player_cards) == 2:
     hit_player()
     bet = bet * 2
@@ -186,6 +189,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
