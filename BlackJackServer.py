@@ -33,7 +33,6 @@ def hand_value(hand):
     return total
 
 def split():
-  global bet
   # only 2 cards and cards are equal
   if len(player_cards) == 2 and player_cards[0][0] == player_cards[1][0]:
     # create another hand and "hit" each hand with hit()
@@ -43,7 +42,6 @@ def split():
     return "error invalid cards"
 
 def double():
-  global bet
   if len(player_cards) == 2:
     hit_player()
     bet = bet * 2
@@ -54,13 +52,13 @@ def double():
 # TODO: needs to be implemented
 def hit_player():
   # add card to hand
-    global deck, player_cards, dealer_cards
+    global deck, player_cards
     player_cards.append(deck.pop())
-    return
+    return ""
 
 def hit_dealer():
   # add card to hand
-    global deck, player_cards, dealer_cards
+    global deck, dealer_cards
     dealer_cards.append(deck.pop())
     return
 
@@ -82,13 +80,25 @@ def deal():
     return "LOSE" if dealer_cards[1][:-1] in{'J','Q','K','10'} else ""
   return ""
 
+# testing function, delete for final
+def testPrintCards():
+  print("Player cards: ")
+  for card in player_cards:
+    print(card)
+  print("Dealer cards: ")
+  for card in dealer_cards:
+    print(card)
+
 # TODO: needs to be implemented
 def finish_game():
+    print("FINISH GAME")
+    testPrintCards()
   # deal to dealer until dealer has soft 17 or higher
     while hand_value(dealer_cards) < 17:
         hit_dealer()
+    testPrintCards()
     
-  return
+    return
 
 def return_cards(cards):
   result = str(hand_value(cards)) + " "
@@ -121,7 +131,7 @@ def blackjackThread(connectionSocket):
       print(f"GAME COMMAND: {gameCommand}")
       action = gameCommand[0]
       if action == "HIT":
-        hit_player()
+        result = hit_player()
       elif action == "STAND":
         finish_game()
         break
@@ -135,18 +145,15 @@ def blackjackThread(connectionSocket):
         elif gameCommand[1] == "player":
           result = "HAND " + return_cards(player_cards)
         else:
-          result = "error bad command"
+          connectionSocket.close()
+          return
       
+      
+      print(f"DEBUG: {result}")
       connectionSocket.send(result.encode())
-        
-      
-      if "error" in result:
-        # error doubling or splitting cards
-        # send appropriate message
-        connectionSocket.close()
-        return
-      
+
       player_total = hand_value(player_cards)
+      print(f"Player total: {player_total}")
       if player_total > 21:
         result = "RESULT player_bust"
         break
@@ -193,10 +200,6 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
-
-
-
-
 
 
 
