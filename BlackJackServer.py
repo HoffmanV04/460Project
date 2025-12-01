@@ -182,8 +182,8 @@ def blackjackThread(connectionSocket):
         else:
             # player win
             result = "RESULT player_win"
-            print(f"RESULT: {result}")
-            connectionSocket.send(result.encode())
+        print(f"RESULT: {result}")
+        connectionSocket.send(result.encode())
   connectionSocket.close()
 
 def serverMain():
@@ -200,6 +200,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
