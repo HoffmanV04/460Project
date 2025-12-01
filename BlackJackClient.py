@@ -76,8 +76,10 @@ def playHand(clientSocket):
             print("Invalid input.")
             continue
 
+        print("before response")
         actionResponse = clientSocket.recv(1024).decode()
         response = actionResponse.split()
+        print(f"After response: {response}")
 
         #view updated hands
         displayHand(clientSocket, "dealer")
