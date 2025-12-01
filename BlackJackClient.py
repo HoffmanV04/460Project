@@ -36,7 +36,7 @@ def displayHand(clientSocket, person):
     
         if person == "player":
             display_hand = "Your Hand: "
-        else
+        else:
             display_hand = "Dealer's Hand: "
         #Player's  card:
         for card in hand:
