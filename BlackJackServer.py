@@ -54,13 +54,24 @@ def hit_player():
   # add card to hand
     global deck, player_cards
     player_cards.append(deck.pop())
-    return "successful_hit"
+    player_total = hand_value(player_cards)
+    print(f"Player total: {player_total}")
+    if player_total > 21:
+      return "RESULT player_bust"
+    elif player_total == 21:
+      return "RESULT player_blackjack"
+    return "ACTION"
 
 def hit_dealer():
   # add card to hand
     global deck, dealer_cards
     dealer_cards.append(deck.pop())
-    return
+    dealer_total = hand_value(dealer_cards)
+    if dealer_total > 21:
+      return "RESULT dealer_bust"
+    elif dealer_total == 21:
+      return "RESULT dealer_blackjack"
+    return "ACTION"
 
 def deal():
   # deal cards
@@ -149,26 +160,14 @@ def blackjackThread(connectionSocket):
       
       
       print(f"DEBUG: {result}")
+      if "RESULT" in result:
+        break
       connectionSocket.send(result.encode())
 
-      player_total = hand_value(player_cards)
-      print(f"Player total: {player_total}")
-      if player_total > 21:
-        result = "RESULT player_bust"
-        break
-      elif player_total == 21:
-        result = "RESULT player_blackjack"
-        break
-      dealer_total = hand_value(dealer_cards)
-      if dealer_total > 21:
-        result = "RESULT dealer_bust"
-        break
-      elif dealer_total == 21:
-        result = "RESULT dealer_blackjack"
-        break
+      
     #end while
     if "RESULT" in result:
-      print(f"PLAYER LOSS: {result}")
+      print(f"RESULT: {result}")
       connectionSocket.send(result.encode())
     else:
         player_total = hand_value(player_cards)
@@ -202,14 +201,3 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
-
-
-
-
-
-
-
-
-
-
-

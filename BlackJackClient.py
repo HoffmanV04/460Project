@@ -80,16 +80,17 @@ def playHand(clientSocket):
         actionResponse = clientSocket.recv(1024).decode()
         response = actionResponse.split()
         print(f"After response: {response}")
+        #the next step
+        if "RESULT" in response: #when the game ends and returns the result
+            displayResult(response)
+            return
 
         #view updated hands
         displayHand(clientSocket, "dealer")
         displayHand(clientSocket, "player")
 
-        #the next step
-        if "RESULT" in response: #when the game ends and returns the result
-            displayResult(response)
-            return
-        elif "NEXT_HAND" in response: #if the player split, and has to play the second hand
+        
+        if "NEXT_HAND" in response: #if the player split, and has to play the second hand
             print("--- Moving to next split hand ---")
             continue
         elif "ACTION" in response:
@@ -126,15 +127,11 @@ def playGame(clientSocket, user):
         displayHand(clientSocket, "dealer")
         displayHand(clientSocket, "player")
 
-        
-
-
         if "RESULT" in startResponse:
             displayResult(startResponse)
             return  # round finished
 
         playHand(clientSocket)
-
 
 def ClientMain():
     #Specify the IP address and port number of the server
