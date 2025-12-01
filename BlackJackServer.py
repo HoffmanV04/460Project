@@ -84,11 +84,10 @@ def deal():
     deck = create_deck()
     player_cards.clear()
     dealer_cards.clear()
-    #for i in range(0, 2):
-        #player_cards.append(deck.pop())
-        #dealer_cards.append(deck.pop())
-    player_cards = ['9H', '10D']
-    dealer_cards = ['AH', '10D']
+    for i in range(0, 2):
+        player_cards.append(deck.pop())
+        dealer_cards.append(deck.pop())
+
 
 
         # check for player blackjack
@@ -208,3 +207,4 @@ def serverMain():
 
 
 serverMain()
+
