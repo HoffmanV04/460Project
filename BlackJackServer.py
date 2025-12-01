@@ -41,7 +41,7 @@ def split():
 
 def double():
   if len(player_cards) == 2:
-    hit()
+    hit_player()
     bet = bet * 2
     return "RESULT"
   else:
@@ -119,7 +119,7 @@ def blackjackThread(connectionSocket):
       print(f"GAME COMMAND: {gameCommand}")
       action = gameCommand[0]
       if action == "HIT":
-        hit()
+        hit_player()
       elif action == "STAND":
         finish_game()
         break
@@ -181,6 +181,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
