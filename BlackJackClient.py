@@ -13,7 +13,7 @@ def resultMessage(game_result):
 
 def displayResult(result):
     #expects result in form of "RESULT <game_result1> <game_result2>
-    print("Results:)
+    print("Results:")
     resultMessage(result[1])
     if result.len > 2:
         print("Second Hand:")
