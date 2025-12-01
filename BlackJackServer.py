@@ -145,7 +145,7 @@ def blackjackThread(connectionSocket):
         return
       
       player_total = hand_value(player_cards)
-      if player_total >= 21:
+      if player_total > 21:
         result = "RESULT player_bust"
         break
       elif player_total == 21:
@@ -181,6 +181,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
