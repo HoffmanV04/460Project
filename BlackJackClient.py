@@ -28,26 +28,27 @@ def displayHand(clientSocket, person):
     #expects response in form "HAND <value> <card1> <card2> ..."
 
     handResponse = clientSocket.recv(1024).decode()
-    hand=handResponse.split()
-    # initialize  hand and the value of it
-    hand.pop(0)
-    value = hand.pop(0)
-
-    if person == "player":
-        display_hand = "Your Hand: "
-    else
-        display_hand = "Dealer's Hand: "
-    #Player's  card:
-    for card in hand:
-        display_hand += card + " "
-    #print the player's hand
-    print("--------------------------------")
-    print(display_hand)
-    #Total of the hand
-    print("Your Total: " + value + "\n")
-    print("--------------------------------" + "\n")
-
-    return
+    if "HAND" in handResponse:
+        hand=handResponse.split()
+        # initialize  hand and the value of it
+        hand.pop(0)
+        value = hand.pop(0)
+    
+        if person == "player":
+            display_hand = "Your Hand: "
+        else
+            display_hand = "Dealer's Hand: "
+        #Player's  card:
+        for card in hand:
+            display_hand += card + " "
+        #print the player's hand
+        print("--------------------------------")
+        print(display_hand)
+        #Total of the hand
+        print("Your Total: " + value + "\n")
+        print("--------------------------------" + "\n")
+    
+        return
 
 def sendAction(clientSocket, action):
     action = action.encode()
@@ -86,15 +87,12 @@ def playHand(clientSocket):
         if "RESULT" in response: #when the game ends and returns the result
             displayResult(response)
             return
-
-        if "NEXT_HAND" in response: #if the player split, and has to play the second hand
+        elif "NEXT_HAND" in response: #if the player split, and has to play the second hand
             print("--- Moving to next split hand ---")
             continue
-
-        if "ACTION" in response:
+        elif "ACTION" in response:
             continue
-
-        if "ERROR" in response:
+        elif "ERROR" in response:
             print("unable to perform the action")
             continue
 
