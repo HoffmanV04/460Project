@@ -4,6 +4,7 @@ from _thread import *
 
 player_cards = []
 dealer_cards = []
+deck = []
 
 def create_deck():
     ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
@@ -51,12 +52,12 @@ def double():
 def hit_player():
   # add card to hand
     player_cards.append(deck.pop())
-  return
+    return
 
 def hit_dealer():
   # add card to hand
     dealer_cards.append(deck.pop())
-  return
+    return
 
 def deal():
   # deal cards
@@ -81,10 +82,10 @@ def finish_game():
 
     if hand_value(dealer_cards) > 21:
         result = "RESULT dealer_bust"
-        break
+        
     elif hand_value(dealer_cards) == 21:
         result = "RESULT dealer_blackjack"
-        break
+        
         
   return
 
@@ -181,6 +182,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
