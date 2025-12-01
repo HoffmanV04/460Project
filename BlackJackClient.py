@@ -1,6 +1,6 @@
 from socket import *
 
-def resultMessage():
+def resultMessage(game_result):
     wins = ["player_blackjack", "player_win", "dealer_bust"]
     loses = ["dealer_win", "player_bust", "dealer_blackjack"]
     
