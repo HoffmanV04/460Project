@@ -1,6 +1,7 @@
 from socket import *
 import random
 from _thread import *
+import time
 
 player_cards = []
 dealer_cards = []
@@ -49,12 +50,11 @@ def double():
   else:
     return "error invalid cards"
   
-# TODO: needs to be implemented
 def hit_player():
   # add card to hand
     global deck, player_cards
     player_cards.append(deck.pop())
-    return ""
+    return "successful_hit"
 
 def hit_dealer():
   # add card to hand
@@ -89,7 +89,6 @@ def testPrintCards():
   for card in dealer_cards:
     print(card)
 
-# TODO: needs to be implemented
 def finish_game():
     print("FINISH GAME")
     testPrintCards()
@@ -167,6 +166,7 @@ def blackjackThread(connectionSocket):
       elif dealer_total == 21:
         result = "RESULT dealer_blackjack"
         break
+    #end while
     if "RESULT" in result:
       print(f"PLAYER LOSS: {result}")
       connectionSocket.send(result.encode())
@@ -184,6 +184,8 @@ def blackjackThread(connectionSocket):
             result = "RESULT player_win"
         print(f"RESULT: {result}")
         connectionSocket.send(result.encode())
+  print("CLOSING SOCKET")
+  time.sleep(1)
   connectionSocket.close()
 
 def serverMain():
@@ -200,7 +202,6 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
-
 
 
 
