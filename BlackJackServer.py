@@ -86,7 +86,7 @@ def deal():
 def finish_game():
   # deal to dealer until dealer has soft 17 or higher
     while hand_value(dealer_cards) < 17:
-        hit_dealer
+        hit_dealer()
     
   return
 
@@ -189,6 +189,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
