@@ -48,9 +48,14 @@ def double():
     return "error invalid cards"
   
 # TODO: needs to be implemented
-def hit():
+def hit_player():
   # add card to hand
     player_cards.append(deck.pop())
+  return
+
+def hit_dealer():
+  # add card to hand
+    dealer_cards.append(deck.pop())
   return
 
 def deal():
@@ -71,6 +76,16 @@ def deal():
 # TODO: needs to be implemented
 def finish_game():
   # deal to dealer until dealer has soft 17 or higher
+    while hand_value(dealer_cards) < 17:
+        hit_dealer
+
+    if hand_value(dealer_cards) > 21:
+        result = "RESULT dealer_bust"
+        break
+    elif hand_value(dealer_cards) == 21:
+        result = "RESULT dealer_blackjack"
+        break
+        
   return
 
 def return_cards(cards):
@@ -166,6 +181,7 @@ def serverMain():
     start_new_thread(blackjackThread, (connectionSocket,))
 
 serverMain()
+
 
 
 
